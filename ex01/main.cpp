@@ -1,72 +1,63 @@
 #include "Animal.hpp"
 #include "Dog.hpp"
 #include "Cat.hpp"
-#include "WrongAnimal.hpp"
-#include "WrongCat.hpp"
+#include "Brain.hpp"
+#include "Colors.hpp"
 #include <iostream>
 
 int main() {
-	std::cout << "======== SUBJECT TESTS ========" << std::endl;
+	std::cout << BOLD_WHITE << "\n============= ARRAY TESTS ==============" << RESET << std::endl;
 
-	const Animal* meta = new Animal();
-	const Animal* j = new Dog();
-	const Animal* i = new Cat();
+	const int arraySize = 4;
+	Animal* animals[arraySize];		// stack array holding pointers
 
-	std::cout << j->getType() << " " <<std::endl; // dog type
-	std::cout << i->getType() << " " <<std::endl; // cat type
+	std::cout << BOLD_WHITE << "\n-------- Creating Animals Array --------" << RESET << std::endl;
+	for (int i = 0; i < arraySize; i++) {
+		if (i < arraySize / 2)
+			animals[i] = new Dog();	// objects allocated individually on the heap
+		else
+			animals[i] = new Cat();	// objects allocated individually on the heap
+		std::cout << "Created animals[" << i << "] with type: " << animals[i]->getType() << std::endl;
+		std::cout << "---------------------------------------------" << std::endl;
+	}
 
-	i->makeSound(); // will output the cat sound
-	j->makeSound(); // will output the dog sound
-	meta->makeSound(); // will output the generic animal sound
-
+	std::cout << BOLD_WHITE << "\n-------- Deleting Animals Array --------" << RESET << std::endl;
+	for (int i = 0; i < arraySize; i++) {
+		std::cout << "Deleting animals[" << i << "]: " << std::endl;
+		delete animals[i];
+		std::cout << "---------------------------------------------" << std::endl;
+	}
 	std::cout << std::endl;
 
-	std::cout << "-------- Deleting Subject Animals --------" << std::endl;
-	delete meta;
-	delete j;
-	delete i;
+	std::cout << BOLD_WHITE << "\n=========== DEEP COPY TESTS ============" << RESET << std::endl;
 
-	std::cout << std::endl;
+	std::cout << BOLD_WHITE << "\n--- Create Basic Cat and Set an Idea ---" << RESET << std::endl;
+	Cat* originalCat = new Cat();
+	originalCat->getBrain().setIdea(0, "Push cup off the table");
+	std::cout << "originalCat's idea: " << originalCat->getBrain().getIdea(0) << std::endl;	
+	std::cout << "---------------------------------------------" << std::endl;
 
-	std::cout << "======== WRONG ANIMAL TESTS ========" << std::endl;
+	std::cout << BOLD_WHITE << "\n--- Create a Copy via Copy Constructor ---" << RESET << std::endl;
+	Cat* copyCat = new Cat(*originalCat);
+	std::cout << "copyCat's idea: " << copyCat->getBrain().getIdea(0) << std::endl;	
+	std::cout << "---------------------------------------------" << std::endl;
 
-	const WrongAnimal* wrongMeta = new WrongAnimal();
-	const WrongAnimal* wrongCat = new WrongCat();
+	std::cout << BOLD_WHITE << "\n--- Test Assignment Operator Deep Copy ---" << RESET << std::endl;
+	Cat assignedCat;
+	assignedCat = *originalCat;
+	std::cout << "assignedCat's idea: " << assignedCat.getBrain().getIdea(0) << std::endl;	
+	std::cout << "---------------------------------------------" << std::endl;
 
-	std::cout << wrongCat->getType() << " " << std::endl; // wrong cat type
+	std::cout << BOLD_WHITE << "\n--- Proving Independent Mindspace ---" << RESET << std::endl;
+	copyCat->getBrain().setIdea(0, "Sleep for 16 hours instead");
+	std::cout << "originalCat's idea 0: " << originalCat->getBrain().getIdea(0) << std::endl;
+	std::cout << "copyCat's idea 0: " << copyCat->getBrain().getIdea(0) << std::endl;
+	std::cout << "---------------------------------------------" << std::endl;
+	
+	std::cout << BOLD_WHITE << "\n--- Deleting Heap Copy Objects ---" << RESET << std::endl;
+	delete originalCat;
+	delete copyCat;
+	std::cout << "---------------------------------------------" << std::endl;
 
-	wrongCat->makeSound(); // will output the WrongAnimal sound due to static binding
-	wrongMeta->makeSound();
-
-	std::cout << std::endl;
-
-	std::cout << "-------- Deleting Wrong Animals --------" << std::endl;
-	delete wrongMeta;
-	delete wrongCat; //notice during execution that ~WrongCat is never called
-
-	std::cout << std::endl;
-
-	std::cout << "======== ADDITIONAL DEEP COPY TESTS ========" << std::endl;
-
-	std::cout << std::endl;
-
-	std::cout << "--- Creating a Dog and copying it ---" << std::endl;
-	Dog originalDog;
-	std::cout << "Original Dog Type: " << originalDog.getType() << std::endl;
-
-	std::cout << std::endl;
-
-	Dog copyDog(originalDog);
-	std::cout << "Copy Dog Type: " << copyDog.getType() << std::endl;
-
-	std::cout << std::endl;
-
-	Dog assignedDog;
-	assignedDog = originalDog;
-	std::cout << "Assigned Dog Type: " << assignedDog.getType() << std::endl;
-
-	std::cout << std::endl;
-
-	std::cout << "--- Scope Ending: Stack Deletions ---" << std::endl;
 	return 0;
 }

@@ -1,4 +1,4 @@
-NAME = animal
+NAME = brain
 
 CXX = c++
 
@@ -6,6 +6,7 @@ CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 SRCS = main.cpp \
 	   Animal.cpp \
+	   Brain.cpp \
 	   Dog.cpp \
 	   Cat.cpp \
 	   WrongAnimal.cpp \
@@ -15,6 +16,7 @@ OBJDIR = objects
 OBJS = $(SRCS:%.cpp=$(OBJDIR)/%.o)
 
 DEPS = Animal.hpp \
+	   Brain.hpp \
 	   Dog.hpp \
 	   Cat.hpp \
 	   WrongAnimal.hpp \

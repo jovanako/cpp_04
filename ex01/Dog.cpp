@@ -1,23 +1,30 @@
 #include "Dog.hpp"
+#include "Colors.hpp"
 #include <iostream>
 
 Dog::Dog() : Animal("Dog") {
-	std::cout << "Dog Default Constructor called" << std::endl;
+	brain = new Brain();
+	std::cout << GREEN << "Dog Default Constructor called" << RESET << std::endl;
 }
 
 Dog::Dog(const Dog & other) : Animal(other) {
-	std::cout << "Dog Copy Constructor called" << std::endl;
+	std::cout << GREEN << "Dog Copy Constructor called" << RESET << std::endl;
+	this->brain = new Brain(*other.brain);
 }
 
 Dog & Dog::operator=(const Dog & other) {
-	std::cout << "Dog Copy Assignment Operator called" << std::endl;
-	if (this != &other)
+	std::cout << GREEN << "Dog Copy Assignment Operator called" << RESET << std::endl;
+	if (this != &other) {
 		Animal::operator=(other);
+		delete this->brain;
+		this->brain = new Brain(*other.brain);
+	}
 	return *this;
 }
 
 Dog::~Dog() {
-	std::cout << "Dog Destructor called" << std::endl;
+	std::cout << GREEN << "Dog Destructor called" << RESET << std::endl;
+	delete brain;
 }
 
 void Dog::makeSound() const {
