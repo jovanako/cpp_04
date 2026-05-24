@@ -6,7 +6,7 @@
 #include <iostream>
 
 int main() {
-	std::cout << "-------- SUBJECT TESTS --------" << std::endl;
+	std::cout << "======== SUBJECT TESTS ========" << std::endl;
 
 	const Animal* meta = new Animal();
 	const Animal* j = new Dog();
@@ -28,7 +28,7 @@ int main() {
 
 	std::cout << std::endl;
 
-	std::cout << "-------- WRONG ANIMAL TESTS --------" << std::endl;
+	std::cout << "======== WRONG ANIMAL TESTS ========" << std::endl;
 
 	const WrongAnimal* wrongMeta = new WrongAnimal();
 	const WrongAnimal* wrongCat = new WrongCat();
@@ -46,7 +46,7 @@ int main() {
 
 	std::cout << std::endl;
 
-	std::cout << "-------- ADDITIONAL DEEP COPY TESTS --------" << std::endl;
+	std::cout << "======== ADDITIONAL DEEP COPY TESTS ========" << std::endl;
 
 	std::cout << std::endl;
 
