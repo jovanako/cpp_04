@@ -1,29 +1,29 @@
 #include "WrongAnimal.hpp"
-
+#include "Colors.hpp"
 #include <iostream>
 
 WrongAnimal::WrongAnimal() : type("Wrong Animal") {
-	std::cout << "WrongAnimal Default Constructor called for " << type << std::endl;
+	std::cout << MAGENTA << "WrongAnimal Default Constructor called for " << type << RESET << std::endl;
 }
 
 WrongAnimal::WrongAnimal(std::string type) : type(type) {
-	std::cout << "WrongAnimal Parametric Constructor called for " << type << std::endl;
+	std::cout << MAGENTA << "WrongAnimal Parametric Constructor called for " << type << RESET << std::endl;
 }
 
 WrongAnimal::WrongAnimal(const WrongAnimal & other) : type(other.type) {
-	std::cout << "WrongAnimal Copy Constructor called for " << type << std::endl;
+	std::cout << MAGENTA << "WrongAnimal Copy Constructor called for " << type << RESET << std::endl;
 }
 
 WrongAnimal & WrongAnimal::operator=(const WrongAnimal & other) {
 	if (this != &other) {
 		this->type = other.type;
-		std::cout << "WrongAnimal Copy Assignment Operator called for " << type << std::endl;
+		std::cout << MAGENTA << "WrongAnimal Copy Assignment Operator called for " << type << RESET << std::endl;
 	}
 	return *this;
 }
 
 WrongAnimal::~WrongAnimal() {
-	std::cout << "WrongAnimal Destructor called for " << type << std::endl;
+	std::cout << MAGENTA << "WrongAnimal Destructor called for " << type << RESET << std::endl;
 }
 
 std::string WrongAnimal::getType() const {

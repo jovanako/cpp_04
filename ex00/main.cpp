@@ -3,10 +3,11 @@
 #include "Cat.hpp"
 #include "WrongAnimal.hpp"
 #include "WrongCat.hpp"
+#include "Colors.hpp"
 #include <iostream>
 
 int main() {
-	std::cout << "======== SUBJECT TESTS ========" << std::endl;
+	std::cout << BOLD_WHITE << "======== SUBJECT TESTS ========" << RESET << std::endl;
 
 	const Animal* meta = new Animal();
 	const Animal* j = new Dog();
@@ -28,7 +29,7 @@ int main() {
 
 	std::cout << std::endl;
 
-	std::cout << "======== WRONG ANIMAL TESTS ========" << std::endl;
+	std::cout << BOLD_WHITE << "======== WRONG ANIMAL TESTS ========" << RESET << std::endl;
 
 	const WrongAnimal* wrongMeta = new WrongAnimal();
 	const WrongAnimal* wrongCat = new WrongCat();
@@ -46,7 +47,7 @@ int main() {
 
 	std::cout << std::endl;
 
-	std::cout << "======== ADDITIONAL DEEP COPY TESTS ========" << std::endl;
+	std::cout << BOLD_WHITE << "======== ADDITIONAL DEEP COPY TESTS ========" << RESET << std::endl;
 
 	std::cout << std::endl;
 
