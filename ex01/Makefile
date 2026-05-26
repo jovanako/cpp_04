@@ -20,7 +20,8 @@ DEPS = Animal.hpp \
 	   Dog.hpp \
 	   Cat.hpp \
 	   WrongAnimal.hpp \
-	   WrongCat.hpp
+	   WrongCat.hpp \
+	   Colors.hpp
 
 all: $(NAME)
 

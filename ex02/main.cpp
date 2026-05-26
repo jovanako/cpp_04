@@ -1,4 +1,4 @@
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 #include "Dog.hpp"
 #include "Cat.hpp"
 #include "Brain.hpp"
@@ -6,10 +6,13 @@
 #include <iostream>
 
 int main() {
+	// const AAnimal* testAbstract = new AAnimal();
+	// AAnimal concreteAbstract;
+
 	std::cout << BOLD_WHITE << "\n============= ARRAY TESTS ==============" << RESET << std::endl;
 
 	const int arraySize = 4;
-	Animal* animals[arraySize];		// stack array holding pointers
+	AAnimal* animals[arraySize];		// stack array holding pointers
 
 	std::cout << BOLD_WHITE << "\n-------- Creating Animals Array --------" << RESET << std::endl;
 	for (int i = 0; i < arraySize; i++) {

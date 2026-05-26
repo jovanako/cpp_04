@@ -1,67 +1,85 @@
-Brain::Brain() {
-	std::cout << "Brain Default Constructor called" << std::endl;
+ABSTRACT CLASS
+
+-	Defines an abstract type which cannot be instantiated, but
+	can be used as a base class.
+
+"declarator virt-specifier(optional) = 0"
+
+-	Here the sequence "=0" is known as "pure-specifier", and
+	appears	either immediately after the declarator or after
+	the optional virt-specifier(override or final).
+
+-	pure-specifier cannot appear in a member function
+	definition or "friend" declaration
+
+(1) THE CORE CONCEPT: PURE VIRTUAL FUNCTIONS & ABSTRACT CLASSES
+
+	To prevent a class from being instantiated directly, you
+	must turn it into an ABSTRACT CLASS. In C++, a class
+	automatically becomes abstract the moment it contains at
+	least one PURE VIRTUAL FUNCTION.
+
+	A pure virtual function is a function that has no definition
+	in the base class; it acts purely as a contract. It forces 
+	any derived class (Dog, Cat) to implement its own version of 
+	that function, or else those derived will also become
+	abstract and uninstantiable.
+
+	virtual void makeSound() const = 0;
+
+	In C++, a pure virtual function CAN have a body in the .cpp
+	file, but it is standard practice to delete its definition 
+	from Animal.cpp because it can no longer be called directly
+	anyway.
+
+	WHAT CAN BE MADE PURE VIRTUAL?
+
+	-	Standard Virtual Member Functions
+	
+	-	The Base Class Destructor
+
+	Crucial trap for C++: If you make a destructor pure virtual,
+	you must still provide a body for it in your .cpp file 
+	(e.g., Animal::~Animal() {}). This is because when a derived
+	object like Dog is destroyed, it always winds down and calls
+	its parent's destructor. If the parent destructor has no 
+	physical body code, the linker will crash with an undefined
+	reference error!
+
+	WHAT CANNOT BE MADE PURE?
+
+	-	Non-Virtual Member Functions
+
+	-	Static Functions
+
+	-	Friend Functions
+
+	Static member functions belong to the class itself, not to an
+	object instance, so they cannot be virtual or pure virtual.
+
+	Friend functions are not actual members of the class, so they
+	cannot be virtual or pure virtual.
+
+	WHAT MUST NEVER BE MADE PURE?
+
+	-	Constructors
+
+	A constructor's job is to allocate and set up an object in	
+	memory. A pure virtual function implies that the setup mechanics
+	don't exist yet and must be defined by a child class. Because a
+	child class cannot inherit its parent's constructor, making a
+	constructor pure virtual makes zero logical sense to the compiler.
+
+SUMMARY BLUEPRINT FOR ABSTRACT CLASSES
+
+class AbstractClass {
+		public:
+			// 1. Constructors: NEVER virtual, NEVER pure
+			AbstractClass();
+
+			// 2. Standard Functions: CAN be pure virtual (makes the class abstract)
+			virtual void pureFunction() = 0;
+
+			// 3. Destructor: MUST be virtual. CAN be pure virtual (but requires a body anyway)
+			virtual ~AbstractClass() = 0;
 }
-
--	This code snippet will initialize an array of 100 empty strings.
-
-*	Why this happens automatically in C++?
-
-	This behavior is driven by how C++ manages compound types and 
-	object lifecycles:
-
-	(1)	Object Arrays Invoke Default Constructors: When an object of
-		a class (like Brain) is instantiated, C++ automatically
-		initializes all its member attributes BEFORE executing the
-		code inside the constructor's curly braces {}.
-		For an array of objects, C++ steps through the array
-		sequentially from index 0 to 99 and calls the default 
-		constructor for every single element.
-	
-	(2)	std::string Has a Built-In Default State: The default
-		constructor of std::string is explicitly designed to
-		initialize itself as an empty string (a string with a length
-		of 0 containing only the null terminator \0).
-	
-	So by the time your code hits std::cout, C++ has already silently
-	run the std::string default constructor 100 times in the background.
-
-!!! Objects vs. Primitive Types !!!
-
-	This automatic initialization only happens because std::string is a
-	class type (an object). If your array had been a primitive data type
-	- such as integers or raw pointers - C++ would not initialie them for
-	you:
-
-	class Brain {
-		private:
-			int ideas[100];				// primitive type array!
-			std::string* ptrs[100];		// pointer array (also primitive)!
-	};
-
-	If you leave your constructor empty with primitive arrays, the memory
-	slots will contain random, unpredictable garbage data left over from
-	your RAM. If you ever switch to primitive types or pointers, you must
-	explicitly clear them out yourself using a loop or a member initializer
-	list:
-
-	Brain::Brain() {
-		for (int i = 0; i < 100; i++) {
-			ideas[i] = 0;		// clears garbage data for primitives
-		}
-	}
-
-	Explicit initialization is ONLY mandatory for primitives/pointers!
-
-=== new keyword ===
-
-When you use "new", you are telling the computer to do two distinct 
-things in a single seamless step:
-
-(1)	Allocate memory: It allocates a block of raw memory on the heap
-	large enough to hold your object.
-
-(2)	Initialize memory: It immediately runs a constructor to initialize
-	that freshly allocated memory slot.
-
-Which constructor it runs depends entirely on what parameters you pass
-inside the parentheses ().
