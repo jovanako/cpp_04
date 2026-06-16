@@ -5,9 +5,7 @@ ABSTRACT CLASS
 
 "declarator virt-specifier(optional) = 0"
 
--	Here the sequence "=0" is known as "pure-specifier", and
-	appears	either immediately after the declarator or after
-	the optional virt-specifier(override or final).
+-	Here the sequence "=0" is known as "pure-specifier"
 
 -	pure-specifier cannot appear in a member function
 	definition or "friend" declaration
